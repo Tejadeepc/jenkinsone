@@ -1,0 +1,25 @@
+pipeline {
+    agent any 
+    tools {
+        maven 'MAVEN_3.9.7'
+    }
+    stages {
+        stage('VCS') {
+            git url: 'https://github.com/Tejadeepc/spring-petclinic.git',
+                 branch: 'main'
+        }
+    }
+    steps('build') {
+        step {
+            sh 'building code ....'
+            sh 'static code analysis'
+            sh 'archive the package into jfrog'
+        
+        }
+    }
+    stage('deploy') {
+        steps {
+            sh 'deploying to production'
+        }
+    }
+}
